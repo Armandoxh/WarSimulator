@@ -1,29 +1,25 @@
 import domain.armies.Battalion;
-import domain.interactions.AbstractAttack;
-import domain.statistics.AbstractFrontLineStatisticsContainer;
-import domain.statistics.AbstractUnitStatistics;
-import domain.statistics.SoldierStatistics;
+import domain.armies.Complexity;
 import domain.units.AbstractFrontLineUnit;
+import domain.units.Marksman;
 import domain.units.Soldier;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class testi {
     public static void main(String[] args) {
+//        String inum = "12";
+//        String month = new DateFormatSymbols().getMonths()[(Integer.parseUnsignedInt(inum)-1)];
 
-
-        Soldier s = new Soldier(7,10);
-        Soldier y = new Soldier(10,10);
-        AbstractFrontLineUnit h = new Soldier();
-
-        AbstractAttack<Soldier> e = new AbstractAttack<Soldier>(s);
-        System.out.println(e.getRawDamage());
-        Battalion<Soldier> test = new Battalion<>(1, Battalion.Complexity.COMPLEXITY_1);
-        test.add(new Soldier(1,1));
-        System.out.println(test.size());
-        AbstractUnitStatistics<AbstractFrontLineUnit> l = new AbstractUnitStatistics<>(2);
-        SoldierStatistics b = new SoldierStatistics(3);
-        AbstractFrontLineStatisticsContainer<Soldier,SoldierStatistics> mm =
-                new AbstractFrontLineStatisticsContainer<Soldier,SoldierStatistics>(s,b);
-        System.out.println(mm.get(s).getKillCount());
-
+//
+        Battalion<AbstractFrontLineUnit> t = new Battalion<>(500, Complexity.COMPLEXITY3);
+        Stream<AbstractFrontLineUnit> stream =  t.stream();
+        stream.forEach(s-> System.out.println(s.toString()));
+        System.out.println(t.size());
+        List<Class<? extends AbstractFrontLineUnit>> list = Arrays.asList(Soldier.class, Marksman.class,Marksman.class,Marksman.class);
+//
     }
+
 }

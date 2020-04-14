@@ -1,8 +1,12 @@
 package domain.units;
 
+import domain.Settings;
 import domain.armies.Battalion;
+import domain.interactionInterfaces.DamageCalculatable;
 import domain.statistics.AbstractUnitStatistics;
 import domain.unitinterfaces.AbstractFighter;
+
+import java.util.Random;
 
 
 /**
@@ -22,8 +26,10 @@ import domain.unitinterfaces.AbstractFighter;
  * @see Unit
  * @see Battalion
  */
-public abstract class AbstractFrontLineUnit extends Unit implements AbstractFighter {
+public abstract class AbstractFrontLineUnit extends Unit implements
+        AbstractFighter , DamageCalculatable {
 
+    public static Random rand = new Random();
     private double attackStat;
     private double hitPointStat;
     private double criticalStrikeChance;
@@ -42,9 +48,27 @@ public abstract class AbstractFrontLineUnit extends Unit implements AbstractFigh
 
     @Override
     public void defend(double rawDamage) {
-        if(rawDamage>=0) this.hitPointStat -= rawDamage;
+        if(rawDamage>=0) hitPointStat = hitPointStat-rawDamage;
 
     }
+
+    public double attack(){
+        double rawDamage = attackStat;
+        if (attackIsAvoided(attackIsAvoidable)) return 0;
+        int rolls = 0;
+        while (rolls < Settings.DEFAULT_MAX_NUMBER_OF_ROLLS) {
+                if (isCriticalStrike(criticalStrikeChance)) {
+                    rawDamage *= 2;
+                    rolls++;
+                    if (!isDoubleAttack(attackSpeed)) {
+                        rolls++;
+                    }
+                }
+        rolls++;
+        }
+        return rawDamage;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -80,6 +104,7 @@ public abstract class AbstractFrontLineUnit extends Unit implements AbstractFigh
     @Override
     public String toString() {
         return "AbstractFrontLineUnit{" +
+                "ID:" + getId() +
                 "attackStat=" + attackStat +
                 ", hitPointStat=" + hitPointStat +
                 ", criticalStrikeChance=" + criticalStrikeChance +

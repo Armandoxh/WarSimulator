@@ -1,22 +1,23 @@
 package domain.interactionInterfaces;
 
-import domain.units.AbstractFrontLineUnit;
-
 /**
  * should it take a type parameter
  *
  */
-public interface DamageCalculatable<E extends AbstractFrontLineUnit> {
+public interface DamageCalculatable{
 
-    default boolean isCriticalStrike() {
-        return false;
-    };
+    default boolean isCriticalStrike(double critChance) {
+        return Math.random() * 10 < critChance;
+    }
 
-    default boolean isDoubleAttack(){
-        return false;
-    };
+    default boolean isDoubleAttack(double attackSpeed){
+        return Math.random() * 10 < attackSpeed;
+    }
 
-    default boolean isAvoided(){
+    default boolean attackIsAvoided(boolean attackIsAvoidable){
+        if(attackIsAvoidable){
+            return (Math.random()< 0.05);
+        }
         return false;
-    };
+    }
 }

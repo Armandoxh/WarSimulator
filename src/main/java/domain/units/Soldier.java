@@ -21,6 +21,7 @@ public class Soldier extends AbstractFrontLineUnit {
 
     @Override
     public void defend(double rawDamage) {
+
         setHitPointStat(getHitPointStat() - rawDamage);
     }
 

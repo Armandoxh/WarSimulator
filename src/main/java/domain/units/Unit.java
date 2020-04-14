@@ -5,7 +5,11 @@ package domain.units;
  */
 public class Unit {
 
-    private long id = hashCode();
+    private long id =999;
+
+    public long getId() {
+        return id;
+    }
 
 
     @Override

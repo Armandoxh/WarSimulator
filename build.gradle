@@ -15,8 +15,7 @@ repositories {
 }
 
 dependencies {
-
-
+    compile group: 'org.jeasy', name: 'easy-random-core', version: '4.0.0.RC1'
     testCompile("org.junit.jupiter:junit-jupiter-api:5.1.1")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.1.1")
     testCompile group: 'org.junit.platform', name: 'junit-platform-surefire-provider', version: '1.3.2'

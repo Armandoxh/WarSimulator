@@ -5,6 +5,7 @@ public interface AbstractFighter {
 //
 //    }
       void defend(double rawDamage);
+      double attack();
 
 }
 
